@@ -1,5 +1,40 @@
 $(document).ready(function () {
 
+    var navbar = $(".navbar");
+    var heroSection = $("#hero-section").offset().top; // Obtén la posición del header
+
+    $(window).resize(function() {
+        var alto = document.getElementById("hero-section").offsetHeight; // Actualiza la altura del header, en caso de cambio de tamaño de la ventana
+        console.log("La altura es después de cambio de tamaña: " + alto);
+    });
+
+    $(window).scroll(function () {
+        var alto = document.getElementById("hero-section").offsetHeight; // Obtiene la altura del Header
+        // Cambia la clase del navbar según la posición en la página
+        if ($(window).scrollTop() > heroSection + (alto * 0.8)) {
+            navbar.removeClass("navbar navbar-expand-lg fixed-top").addClass("navbar navbar-expand-lg fixed-top bg-info");
+            console.log("La altura es: " + alto);
+        } else {
+            navbar.removeClass("navbar navbar-expand-lg fixed-top bg-info").addClass("navbar navbar-expand-lg fixed-top");
+            console.log("La altura es: " + alto);
+        }
+    });
+
+    // Contrae el Navbar cuando el Toggler está visible.
+    const navbarToggler = document.body.querySelector('.navbar-toggler');
+    const responsiveNavItems = [].slice.call(
+        document.querySelectorAll('#navbarNav .nav-link')
+    );
+    responsiveNavItems.map(function (responsiveNavItem) {
+        responsiveNavItem.addEventListener('click', () => {
+            if (window.getComputedStyle(navbarToggler).display !== 'none') {
+                navbarToggler.click();
+            }
+        });
+    });
+
+
+
     //Activa el Smooth Scroll para ir entre secciones.
     $(".nav-link").on('click', function (event) {
         if (this.hash !== "") {
@@ -12,13 +47,13 @@ $(document).ready(function () {
             });
         }
     });
-    
+
     //Esconde los Div que se destinaron a Tooltip.  Se identifican por Id.
     $("#MiTooltip").hide();
     $("#ValidacionCorreo").hide();
 
     // Activará el Tooltip "MiTooltip", cuando se pase el mouse por sobre algunas de las cards (en la sección Destacado)
-    $(".card").mouseenter(function () {
+    $("#card1,#card2,#card3,#card4").mouseenter(function () {
         // Obtiene el valor del Div id=MiToolTip
         var tooltip = $("#MiTooltip");
         // Le cambia el aspecto a ese Div

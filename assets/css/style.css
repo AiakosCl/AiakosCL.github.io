@@ -16,6 +16,10 @@ body {
     font-style: normal;
 }
 
+a:visited {
+    color:#ffffff;
+}
+
 section, nav {
     margin-left: 10%;
     margin-right: 10%;
